@@ -92,6 +92,30 @@
 		setImage(idx);
 	});
 
+	// Mobile Menu Logic
+	const navToggle = document.querySelector('.nav-toggle');
+	const nav = document.querySelector('.nav');
+	const navLinks = document.querySelectorAll('.nav a');
+
+	if (navToggle) {
+		navToggle.addEventListener('click', () => {
+			nav.classList.toggle('active');
+			navToggle.classList.toggle('active');
+			const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+			navToggle.setAttribute('aria-expanded', !expanded);
+		});
+	}
+
+	navLinks.forEach(link => {
+		link.addEventListener('click', () => {
+			if (nav.classList.contains('active')) {
+				nav.classList.remove('active');
+				navToggle.classList.remove('active');
+				navToggle.setAttribute('aria-expanded', 'false');
+			}
+		});
+	});
+
 	document.addEventListener('keydown', (e) => {
 		if (!modal.classList.contains('open')) return;
 		if (e.key === 'Escape') return closeModal();
